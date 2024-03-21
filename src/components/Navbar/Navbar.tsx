@@ -1,34 +1,18 @@
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
-import { Invoice } from "../../models/Invoice";
+import InvoicesList from "../InvoicesList/InvoicesList";
+import { useModal } from "../../hooks/useModal";
+// import AddInvoiceModal from "../modals/AddInvoiceModal/AddInvoiceModal";
+import style from "./Navbar.module.scss";
+import InvoiceForm from "../forms/InvoiceForm2/InvoiceForm";
 
-type NavbarProps = {
-  invoices: Invoice[];
-};
+const Navbar: FC = () => {
+  const { setModal } = useModal();
 
-const Navbar: FC<NavbarProps> = ({ invoices }) => {
   return (
-    <nav
-      style={{
-        borderRight: "solid 1px",
-        padding: "1rem",
-      }}
-    >
-      {invoices.map((invoice) => (
-        <NavLink
-          style={({ isActive }) => {
-            return {
-              display: "block",
-              margin: "1rem 0",
-              color: isActive ? "red" : "",
-            };
-          }}
-          to={`/${invoice.number}`}
-          key={invoice.number}
-        >
-          {invoice.name}
-        </NavLink>
-      ))}
+    <nav className={style["navbar"]}>
+      <InvoicesList />
+      {/* <button onClick={() => setModal(<AddInvoiceModal />)}>Add invoice</button> */}
+      <button onClick={() => setModal(<InvoiceForm />)}>Add invoice</button>
     </nav>
   );
 };

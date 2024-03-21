@@ -1,8 +1,13 @@
-type Invoice = {
+type InvoiceType = {
+  id: number;
   name: string;
   number: number;
   amount: string;
   due: string;
 };
 
-export type { Invoice };
+type InvoiceState = {
+  invoices: InvoiceType[];
+};
+
+export type { InvoiceType, InvoiceState };

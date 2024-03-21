@@ -1,0 +1,8 @@
+.invoice-item {
+  display: "block";
+  margin: "1rem 0";
+
+  &--active {
+    color: red;
+  }
+}
