@@ -5,6 +5,7 @@ import { ADD_BOARD } from "../../../reducer/board/actions";
 import { useModal } from "../../../hooks/useModal";
 import { useNavigate } from "react-router-dom";
 import style from "./BoardForm.module.scss";
+import InputGroup from "../../inputs/InputGroup/InputGroup";
 
 type FormDataType = {
   name: string;
@@ -64,6 +65,7 @@ const BoardForm: FC = ({}) => {
           onChange={handleChange}
         />
       </label>
+      <InputGroup />
       <button type="submit">Create New Board</button>
     </form>
   );

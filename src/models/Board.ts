@@ -1,3 +1,5 @@
+import { ColumnType } from "./Column";
+
 type BoardType = {
   id: string;
   name: string;
@@ -8,9 +10,4 @@ type BoardState = {
   boards: BoardType[];
 };
 
-type ColumnType = {
-  id: number;
-  name: string;
-};
-
-export type { BoardType, BoardState, ColumnType };
+export type { BoardType, BoardState };
