@@ -1,7 +1,8 @@
 type InvoiceType = {
   id: number;
   name: string;
-  number: number;
+  // number: number;
+  number: string;
   amount: string;
   due: string;
 };

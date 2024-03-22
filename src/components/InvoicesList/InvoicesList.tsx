@@ -1,14 +1,14 @@
 import { FC } from "react";
-import { getInvoices } from "../../data/invoices";
-import style from "./InvoicesList.module.scss";
 import InvoiceItem from "../InvoiceItem/InvoiceItem";
+import { useInvoice } from "../../hooks/useInvoice";
+import style from "./InvoicesList.module.scss";
 
 const InvoicesList: FC = () => {
-  let invoices = getInvoices();
+  const { state } = useInvoice();
 
   return (
     <div className={style["invoices-list"]}>
-      {invoices.map((invoice) => (
+      {state.invoices.map((invoice) => (
         <InvoiceItem key={invoice.number} invoice={invoice} />
       ))}
     </div>

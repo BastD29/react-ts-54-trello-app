@@ -3,6 +3,11 @@
   flex-direction: column;
   grid-gap: 8px;
 
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+
   input {
     // border: solid 1px red;
     height: 20px;

@@ -1,26 +1,31 @@
 import { useParams } from "react-router-dom";
-import { getInvoice } from "../data/invoices";
+import { InvoiceType } from "../models/Invoice";
+import { useInvoice } from "../hooks/useInvoice";
 
 type InvoiceParams = {
   invoiceId: string;
 };
 
 export default function Invoice() {
+  const { state } = useInvoice();
+  console.log("state:", state);
+
   let params = useParams<InvoiceParams>();
+  console.log("invoiceId:", params.invoiceId);
+
   let invoice;
 
-  // Check if invoiceId is defined and is a valid string
+  function getInvoice(number: string): InvoiceType | undefined {
+    return state.invoices.find((invoice) => invoice.number === number);
+  }
+
   if (params.invoiceId) {
-    invoice = getInvoice(parseInt(params.invoiceId, 10));
+    invoice = getInvoice(params.invoiceId);
   } else {
-    // Handle the case where invoiceId is undefined
-    // This could redirect the user, show an error message, or any other error handling
     return <div>Invoice ID is required.</div>;
   }
 
-  // Continue with the assumption that invoice is defined
   if (!invoice) {
-    // Handle case where no invoice is found for the given ID
     return <div>No invoice found for the given ID.</div>;
   }
 
