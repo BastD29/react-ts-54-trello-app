@@ -26,7 +26,9 @@ export default function Invoice() {
   }
 
   if (!invoice) {
-    return <div>No invoice found for the given ID.</div>;
+    return (
+      <div style={{ padding: "1rem" }}>No invoice found for the given ID.</div>
+    );
   }
 
   return (

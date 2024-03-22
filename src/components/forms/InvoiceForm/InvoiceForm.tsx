@@ -4,8 +4,8 @@ import { InvoiceType } from "../../../models/Invoice";
 import { useInvoice } from "../../../hooks/useInvoice";
 import { ADD_INVOICE } from "../../../reducer/invoice/actions";
 import { useModal } from "../../../hooks/useModal";
-import style from "./InvoiceForm.module.scss";
 import { useNavigate } from "react-router-dom";
+import style from "./InvoiceForm.module.scss";
 
 const initialValues: FormDataType = {
   name: "",
@@ -39,15 +39,16 @@ const InvoiceForm: FC = ({}) => {
     );
 
     if (isAnyFieldEmpty) {
-      // Alert the user or handle the error as needed
       alert("Please fill in all fields.");
-      return; // Prevent the form submission
+      return;
     }
 
     console.log("submitted formData: ", formData);
 
+    const newInvoiceId = Date.now();
+
     const newInvoice: InvoiceType = {
-      id: Date.now(),
+      id: newInvoiceId,
       name,
       amount,
       due,
@@ -58,7 +59,7 @@ const InvoiceForm: FC = ({}) => {
     dispatch({ type: ADD_INVOICE, payload: newInvoice });
     setFormData(initialValues);
     unsetModal();
-    // navigate("/")
+    navigate(`/${name}`);
   };
 
   return (
