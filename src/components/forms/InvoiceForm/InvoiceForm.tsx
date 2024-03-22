@@ -5,6 +5,7 @@ import { useInvoice } from "../../../hooks/useInvoice";
 import { ADD_INVOICE } from "../../../reducer/invoice/actions";
 import { useModal } from "../../../hooks/useModal";
 import style from "./InvoiceForm.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const initialValues: FormDataType = {
   name: "",
@@ -17,6 +18,7 @@ const InvoiceForm: FC = ({}) => {
   const { dispatch } = useInvoice();
   const { unsetModal } = useModal();
   const [formData, setFormData] = useState<FormDataType>(initialValues);
+  const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -56,6 +58,7 @@ const InvoiceForm: FC = ({}) => {
     dispatch({ type: ADD_INVOICE, payload: newInvoice });
     setFormData(initialValues);
     unsetModal();
+    // navigate("/")
   };
 
   return (

@@ -9,7 +9,7 @@ const InvoicesList: FC = () => {
   return (
     <div className={style["invoices-list"]}>
       {state.invoices.map((invoice) => (
-        <InvoiceItem key={invoice.number} invoice={invoice} />
+        <InvoiceItem key={invoice.id} invoice={invoice} />
       ))}
     </div>
   );
