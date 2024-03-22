@@ -1,14 +1,13 @@
-import { ChangeEvent, FC, FormEvent, useState } from "react";
-import { BoardType, ColumnType } from "../../../models/Board";
-import { useBoard } from "../../../hooks/useBoard";
-import { ADD_BOARD } from "../../../reducer/board/actions";
-import { useModal } from "../../../hooks/useModal";
-import { useNavigate } from "react-router-dom";
-import style from "./BoardForm.module.scss";
+import React, { FC, useState } from "react";
 
 type FormDataType = {
   name: string;
   columns?: ColumnType[];
+};
+
+type ColumnType = {
+  id: number;
+  name: string;
 };
 
 const initialValues: FormDataType = {
@@ -16,55 +15,62 @@ const initialValues: FormDataType = {
   columns: [],
 };
 
-const BoardForm: FC = ({}) => {
-  const { dispatch } = useBoard();
-  const { unsetModal } = useModal();
-  const navigate = useNavigate();
+const BoardForm: FC = () => {
   const [formData, setFormData] = useState<FormDataType>(initialValues);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, name: e.target.value });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    const { name, columns } = formData;
-    e.preventDefault();
-    if (!name.trim()) {
-      alert("Please fill in all fields.");
-      return;
-    }
-    const newId = Date.now().toString();
-    console.log("submitted formData: ", formData);
-    const newBoard: BoardType = {
-      id: newId,
-      name,
-      columns,
-    };
+  const handleColumnChange = (
+    index: number,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const updatedColumns = formData.columns?.map((column, i) => {
+      if (i === index) {
+        return { ...column, name: e.target.value };
+      }
+      return column;
+    });
 
-    dispatch({ type: ADD_BOARD, payload: newBoard });
-    setFormData(initialValues);
-    unsetModal();
-    navigate(`/${name}`);
+    setFormData({ ...formData, columns: updatedColumns });
+  };
+
+  const handleAddColumn = () => {
+    const newColumn: ColumnType = { id: Date.now(), name: "" }; // Using Date.now() for simplicity
+    setFormData({
+      ...formData,
+      columns: [...(formData.columns || []), newColumn],
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(formData);
+    // Submit formData here (e.g., to an API)
   };
 
   return (
-    <form className={style["board-form"]} onSubmit={handleSubmit}>
-      Add New Board
-      <label>
-        Board Name
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={formData.name}
+        onChange={handleNameChange}
+        placeholder="Form Name"
+      />
+      {formData.columns?.map((column, index) => (
         <input
+          key={column.id}
           type="text"
-          name="name"
-          value={formData["name"]}
-          onChange={handleChange}
+          value={column.name}
+          onChange={(e) => handleColumnChange(index, e)}
+          placeholder={`Column #${index + 1} Name`}
         />
-      </label>
-      <button type="submit">Create New Board</button>
+      ))}
+      <button type="button" onClick={handleAddColumn}>
+        Add Column
+      </button>
+      <button type="submit">Submit Form</button>
     </form>
   );
 };

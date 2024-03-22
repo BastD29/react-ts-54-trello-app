@@ -1,11 +1,12 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
-import { BoardType, ColumnType } from "../../../models/Board";
+import { BoardType } from "../../../models/Board";
 import { useBoard } from "../../../hooks/useBoard";
 import { ADD_BOARD } from "../../../reducer/board/actions";
 import { useModal } from "../../../hooks/useModal";
 import { useNavigate } from "react-router-dom";
 import style from "./BoardForm.module.scss";
 import InputGroup from "../../inputs/InputGroup/InputGroup";
+import { ColumnType } from "../../../models/Column";
 
 type FormDataType = {
   name: string;
