@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useModal } from "../../hooks/useModal";
-import InvoiceForm from "../forms/InvoiceForm/InvoiceForm";
-import InvoicesList from "../InvoicesList/InvoicesList";
+import BoardForm from "../forms/BoardForm/BoardForm";
+import BoardsList from "../BoardsList/BoardsList";
 import style from "./Navbar.module.scss";
 
 const Navbar: FC = () => {
@@ -9,8 +9,8 @@ const Navbar: FC = () => {
 
   return (
     <nav className={style["navbar"]}>
-      <InvoicesList />
-      <button onClick={() => setModal(<InvoiceForm />)}>Add invoice</button>
+      <BoardsList />
+      <button onClick={() => setModal(<BoardForm />)}>Add Board</button>
     </nav>
   );
 };

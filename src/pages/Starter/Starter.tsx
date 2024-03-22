@@ -1,13 +1,13 @@
 import { FC } from "react";
-import { useInvoice } from "../../hooks/useInvoice";
-import SelectInvoice from "../SelectInvoice/SelectInvoice";
 import Empty from "../Empty/Empty";
+import { useBoard } from "../../hooks/useBoard";
+import SelectBoard from "../SelectBoard/SelectBoard";
 
 const Starter: FC = () => {
-  const { state } = useInvoice();
+  const { state } = useBoard();
 
-  if (state.invoices.length > 0) {
-    return <SelectInvoice />;
+  if (state.boards.length > 0) {
+    return <SelectBoard />;
   } else {
     return <Empty />;
   }
