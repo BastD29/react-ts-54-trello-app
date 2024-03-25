@@ -8,6 +8,8 @@ type BoardType = {
 
 type BoardState = {
   boards: BoardType[];
+  // currentBoardId: string | undefined;
+  currentBoard?: BoardType;
 };
 
 type BoardParams = {
