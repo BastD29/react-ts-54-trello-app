@@ -10,4 +10,8 @@ type BoardState = {
   boards: BoardType[];
 };
 
-export type { BoardType, BoardState };
+type BoardParams = {
+  boardId: string;
+};
+
+export type { BoardType, BoardState, BoardParams };

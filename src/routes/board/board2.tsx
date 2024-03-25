@@ -5,7 +5,8 @@ import { BoardParams, BoardType } from "../../models/Board";
 import style from "./board.module.scss";
 
 export default function Board() {
-  const { state } = useBoard();
+  // const { state } = useBoard();
+  const { state, setCurrentBoard } = useBoard();
   console.log("state:", state);
 
   let params = useParams<BoardParams>();
@@ -19,6 +20,7 @@ export default function Board() {
 
   if (params.boardId) {
     board = getBoard(params.boardId);
+    setCurrentBoard(board);
   } else {
     return <div>Board id is required.</div>;
   }
@@ -33,7 +35,7 @@ export default function Board() {
 
   return (
     <main className={style["board"]}>
-      <h1>{board.name}</h1>
+      {/* <h1>{board.name}</h1> */}
       <div>
         {board.columns?.map((column) => (
           <div>{column.name}</div>
