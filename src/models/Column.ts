@@ -1,5 +1,5 @@
 type ColumnType = {
-  id: number;
+  id: string;
   name: string;
 };
 

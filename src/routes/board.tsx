@@ -15,10 +15,6 @@ export default function Board() {
 
   let board;
 
-  // function getBoard(id: string): BoardType | undefined {
-  //   return state.boards.find((board) => board.id === id);
-  // }
-
   function getBoard(name: string): BoardType | undefined {
     return state.boards.find((board) => board.name === name);
   }
@@ -40,6 +36,11 @@ export default function Board() {
   return (
     <main style={{ padding: "1rem" }}>
       <h1>{board.name}</h1>
+      <div>
+        {board.columns?.map((column) => (
+          <div>{column.name}</div>
+        ))}
+      </div>
     </main>
   );
 }

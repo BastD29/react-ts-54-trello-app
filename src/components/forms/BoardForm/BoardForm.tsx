@@ -1,9 +1,11 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
-import { BoardType, ColumnType } from "../../../models/Board";
+import { ColumnType } from "../../../models/Column";
+import InputField from "../../inputs/InputField/InputField";
+import { BoardType } from "../../../models/Board";
 import { useBoard } from "../../../hooks/useBoard";
-import { ADD_BOARD } from "../../../reducer/board/actions";
 import { useModal } from "../../../hooks/useModal";
 import { useNavigate } from "react-router-dom";
+import { ADD_BOARD } from "../../../reducer/board/actions";
 import style from "./BoardForm.module.scss";
 
 type FormDataType = {
@@ -16,28 +18,46 @@ const initialValues: FormDataType = {
   columns: [],
 };
 
-const BoardForm: FC = ({}) => {
+const BoardForm: FC = () => {
   const { dispatch } = useBoard();
   const { unsetModal } = useModal();
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormDataType>(initialValues);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, name: e.target.value });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleColumnChange = (id: string, e: ChangeEvent<HTMLInputElement>) => {
+    const updatedColumns = formData.columns?.map((column) => {
+      if (column.id === id) {
+        return { ...column, name: e.target.value };
+      }
+      return column;
+    });
+
+    setFormData({ ...formData, columns: updatedColumns });
+  };
+
+  const handleAddColumn = () => {
+    const newColumn: ColumnType = { id: Date.now().toString(), name: "" }; // Using Date.now() for simplicity
+    setFormData({
+      ...formData,
+      columns: [...(formData.columns || []), newColumn],
+    });
+  };
+
+  const handleDeleteColumn = (id: string) => {
+    const updatedColumns =
+      formData.columns?.filter((column) => column.id !== id) || [];
+    setFormData({ ...formData, columns: updatedColumns });
+  };
+
+  const handleSubmit = (e: FormEvent) => {
     const { name, columns } = formData;
+
     e.preventDefault();
-    if (!name.trim()) {
-      alert("Please fill in all fields.");
-      return;
-    }
+
     const newId = Date.now().toString();
     console.log("submitted formData: ", formData);
     const newBoard: BoardType = {
@@ -59,11 +79,24 @@ const BoardForm: FC = ({}) => {
         Board Name
         <input
           type="text"
-          name="name"
-          value={formData["name"]}
-          onChange={handleChange}
+          value={formData.name}
+          onChange={handleNameChange}
+          placeholder="Form Name"
         />
       </label>
+      <span>Board Columns</span>
+      {formData.columns?.map((column) => (
+        <InputField
+          key={column.id}
+          id={column.id}
+          value={column.name}
+          onInputChange={(id, e) => handleColumnChange(id, e)}
+          onDeleteItem={handleDeleteColumn}
+        />
+      ))}
+      <button type="button" onClick={handleAddColumn}>
+        + Add New Column
+      </button>
       <button type="submit">Create New Board</button>
     </form>
   );
