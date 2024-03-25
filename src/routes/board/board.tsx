@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useBoard } from "../hooks/useBoard";
-import { BoardType } from "../models/Board";
+import { useBoard } from "../../hooks/useBoard";
+import { BoardType } from "../../models/Board";
+
+import style from "./board.module.scss";
 
 type BoardParams = {
   boardId: string;
@@ -34,7 +36,7 @@ export default function Board() {
   }
 
   return (
-    <main style={{ padding: "1rem" }}>
+    <main className={style["board"]}>
       <h1>{board.name}</h1>
       <div>
         {board.columns?.map((column) => (

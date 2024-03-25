@@ -1,0 +1,28 @@
+.sidebar {
+  width: 250px;
+  position: fixed;
+  left: -250px; // Start off-screen
+  top: 0;
+  bottom: 0;
+  background: #333;
+  color: white;
+  transition: left 0.3s ease;
+  padding: 16px;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  grid-gap: 16px;
+
+  &__close-btn {
+    width: 20px;
+  }
+
+  &--open {
+    left: 0; // Slide in
+  }
+}
+
+// button {
+//   margin: 10px;
+// }
