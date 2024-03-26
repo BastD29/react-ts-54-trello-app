@@ -1,6 +1,5 @@
 import { FC } from "react";
-
-import BoardsList from "../BoardsList/BoardsList";
+import BoardsList from "../boards/BoardsList/BoardsList";
 import { useModal } from "../../hooks/useModal";
 import BoardForm from "../forms/BoardForm/BoardForm";
 import style from "./Sidebar.module.scss";

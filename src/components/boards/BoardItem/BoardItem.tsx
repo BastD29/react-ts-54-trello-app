@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
-import { BoardType } from "../../models/Board";
+import { BoardType } from "../../../models/Board";
 import style from "./BoardItem.module.scss";
 
 type BoardItemProps = {

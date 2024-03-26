@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { useModal } from "../../hooks/useModal";
 import DeleteModal from "../modals/DeleteModal/DeleteModal";
+import { useModal } from "../../hooks/useModal";
 import { useBoard } from "../../hooks/useBoard";
 import style from "./Header.module.scss";
 
@@ -8,6 +8,8 @@ const Header: FC = () => {
   const { setModal } = useModal();
   const { state } = useBoard();
   const { currentBoard } = state;
+
+  console.log("state:", state);
 
   return (
     <header className={style["header"]}>

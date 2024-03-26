@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useBoard } from "../../hooks/useBoard";
+import { useBoard } from "../../../hooks/useBoard";
 import BoardItem from "../BoardItem/BoardItem";
 import style from "./BoardsList.module.scss";
 

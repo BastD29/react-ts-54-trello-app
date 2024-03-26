@@ -1,3 +1,9 @@
 .board {
   padding: 1rem;
+
+  &__columns-list {
+    display: flex;
+    flex-direction: row;
+    grid-gap: 8px;
+  }
 }

@@ -1,11 +1,10 @@
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import Header from "../Header/Header";
-// import Board from "../../routes/board/board";
-import Boards from "../../routes/boards/boards2";
+import Boards from "../../routes/boards/boards";
 import Starter from "../../pages/Starter/Starter";
 import NotFound from "../../pages/NotFound/NotFound";
-import Board from "../../routes/board/board2";
+import Board from "../../routes/board/board";
 
 const App: FC = () => {
   return (
