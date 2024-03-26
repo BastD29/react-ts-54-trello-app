@@ -13,8 +13,8 @@ const BoardItem: FC<BoardItemProps> = ({ board }) => {
       className={({ isActive }) =>
         `${style["board-item"]} ${isActive ? style["board-item--active"] : ""}`
       }
-      to={`/${board.name}`}
-      // to={`/${board.id}`}
+      // to={`/${board.name}`}
+      to={`/${board.id}`}
       key={board.id}
     >
       {board.name}

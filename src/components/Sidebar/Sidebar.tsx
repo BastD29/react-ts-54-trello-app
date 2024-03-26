@@ -1,7 +1,8 @@
 import { FC } from "react";
-import BoardsList from "../boards/BoardsList/BoardsList";
 import { useModal } from "../../hooks/useModal";
-import BoardForm from "../forms/BoardForm/BoardForm";
+import BoardsList from "../boards/BoardsList/BoardsList";
+// import CreateBoardForm from "../forms/CreateBoardForm/CreateBoardForm";
+import CreateBoardForm from "../forms/CreateBoardForm/CreateBoardForm2";
 import style from "./Sidebar.module.scss";
 
 type SidebarProps = {
@@ -22,7 +23,9 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, toggle }) => {
         X
       </button>
       <BoardsList />
-      <button onClick={() => setModal(<BoardForm />)}>Create New Board</button>
+      <button onClick={() => setModal(<CreateBoardForm />)}>
+        Create New Board
+      </button>
     </div>
   );
 };

@@ -1,12 +1,19 @@
-import { ChangeEvent, FC, FormEvent, useState } from "react";
-import { ColumnType } from "../../../models/Column";
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import InputField from "../../inputs/InputField/InputField";
-import { BoardType } from "../../../models/Board";
+import { ColumnType } from "../../../models/Column";
 import { useBoard } from "../../../hooks/useBoard";
+import { BoardType } from "../../../models/Board";
+import {
+  SET_CURRENT_BOARD,
+  UPDATE_BOARD,
+} from "../../../reducer/board/actions";
 import { useModal } from "../../../hooks/useModal";
 import { useNavigate } from "react-router-dom";
-import { ADD_BOARD } from "../../../reducer/board/actions";
-import style from "./BoardForm.module.scss";
+import style from "./EditBoardForm.module.scss";
+
+type EditBoardFormProps = {
+  boardId: string;
+};
 
 type FormDataType = {
   name: string;
@@ -18,11 +25,20 @@ const initialValues: FormDataType = {
   columns: [],
 };
 
-const BoardForm: FC = () => {
-  const { dispatch } = useBoard();
+const EditBoardForm: FC<EditBoardFormProps> = ({ boardId }) => {
+  // console.log("boardId:", boardId);
   const { unsetModal } = useModal();
+  const { state, dispatch } = useBoard();
+  const { boards } = state;
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormDataType>(initialValues);
+
+  useEffect(() => {
+    const boardToEdit = boards.find((board) => board.id === boardId);
+    if (boardToEdit) {
+      setFormData({ name: boardToEdit.name, columns: boardToEdit.columns });
+    }
+  }, [boardId, boards]);
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, name: e.target.value });
@@ -40,7 +56,7 @@ const BoardForm: FC = () => {
   };
 
   const handleAddColumn = () => {
-    const newColumn: ColumnType = { id: Date.now().toString(), name: "" }; // Using Date.now() for simplicity
+    const newColumn: ColumnType = { id: Date.now().toString(), name: "" };
     setFormData({
       ...formData,
       columns: [...(formData.columns || []), newColumn],
@@ -54,27 +70,24 @@ const BoardForm: FC = () => {
   };
 
   const handleSubmit = (e: FormEvent) => {
-    const { name, columns } = formData;
-
+    // const { name } = formData;
     e.preventDefault();
-
-    const newId = Date.now().toString();
     console.log("submitted formData: ", formData);
-    const newBoard: BoardType = {
-      id: newId,
-      name,
-      columns,
-    };
-
-    dispatch({ type: ADD_BOARD, payload: newBoard });
-    setFormData(initialValues);
+    const updatedBoard: BoardType = { id: boardId, ...formData };
+    // dispatch({ type: UPDATE_BOARD, payload: updatedBoard }); // ! was wrong
+    dispatch({
+      type: UPDATE_BOARD,
+      payload: { id: updatedBoard.id, data: updatedBoard },
+    });
+    dispatch({ type: SET_CURRENT_BOARD, payload: updatedBoard });
     unsetModal();
-    navigate(`/${name}`);
+    // navigate(`/${name}`);
+    navigate(`/${boardId}`);
   };
 
   return (
-    <form className={style["board-form"]} onSubmit={handleSubmit}>
-      Add New Board
+    <form className={style["edit-board-form"]} onSubmit={handleSubmit}>
+      Edit Board
       <label>
         Board Name
         <input
@@ -97,9 +110,9 @@ const BoardForm: FC = () => {
       <button type="button" onClick={handleAddColumn}>
         + Add New Column
       </button>
-      <button type="submit">Create New Board</button>
+      <button type="submit">Save Changes</button>
     </form>
   );
 };
 
-export default BoardForm;
+export default EditBoardForm;

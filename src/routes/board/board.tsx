@@ -10,14 +10,21 @@ export default function Board() {
   const { state, dispatch } = useBoard();
   const params = useParams<BoardParams>();
 
-  const getBoard = (name: string): BoardType | undefined => {
-    return state.boards.find((board) => board.name === name);
+  console.log("state:", state);
+
+  // const getBoard = (name: string): BoardType | undefined => {
+  //   return state.boards.find((board) => board.name === name);
+  // };
+
+  const getBoard = (id: string): BoardType | undefined => {
+    return state.boards.find((board) => board.id === id);
   };
 
   useEffect(() => {
     if (params.boardId) {
       const board = getBoard(params.boardId);
       if (board) {
+        // set current board so we can access currentBoard.name in the header
         dispatch({ type: SET_CURRENT_BOARD, payload: board });
       }
     }
