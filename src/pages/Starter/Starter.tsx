@@ -1,6 +1,6 @@
 import { FC } from "react";
-import Empty from "../Empty/Empty";
 import { useBoard } from "../../hooks/useBoard";
+import Empty from "../EmptyApp/EmptyApp";
 import SelectBoard from "../SelectBoard/SelectBoard";
 
 const Starter: FC = () => {

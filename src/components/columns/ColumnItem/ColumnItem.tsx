@@ -9,8 +9,7 @@ type ColumnItemProps = {
 const ColumnItem: FC<ColumnItemProps> = ({ column }) => {
   return (
     <div className={style["column-item"]}>
-      {/* <h1>Column Item</h1> */}
-      {column.name}
+      <h2>{column.name}</h2>
     </div>
   );
 };

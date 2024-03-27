@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-const Empty: FC = () => {
+const EmptyApp: FC = () => {
   return (
     <main className="not-found" style={{ padding: "1rem" }}>
       <p>This app is empty. Create a new board to get started.</p>
@@ -9,4 +9,4 @@ const Empty: FC = () => {
   );
 };
 
-export default Empty;
+export default EmptyApp;

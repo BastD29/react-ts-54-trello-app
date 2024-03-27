@@ -5,6 +5,7 @@ import { useBoard } from "../../hooks/useBoard";
 // import EditBoardForm from "../forms/EditBoardForm/EditBoardForm";
 import style from "./Header.module.scss";
 import BoardForm from "../forms/BoardForm/BoardForm";
+import CreateTaskForm from "../forms/CreateTaskForm/CreateTaskForm";
 
 const Header: FC = () => {
   const { setModal } = useModal();
@@ -13,7 +14,7 @@ const Header: FC = () => {
   const [showButtons, setShowButtons] = useState<boolean>(false);
   const buttonsRef = useRef<HTMLDivElement | null>(null);
 
-  console.log("state:", state);
+  // console.log("state:", state);
 
   const toggleButtonsVisibility = () => setShowButtons(!showButtons);
 
@@ -36,23 +37,33 @@ const Header: FC = () => {
   return (
     <header className={style["header"]}>
       <h1>{currentBoard ? currentBoard.name : ""}</h1>
-      <button onClick={toggleButtonsVisibility} disabled={!currentBoard}>
-        ...
-      </button>
-      {showButtons && (
-        <div ref={buttonsRef} className={style["header__buttons"]}>
-          <button onClick={() => setModal(<DeleteModal />)}>
-            Delete Board
-          </button>
-          {currentBoard && (
-            <button
-              onClick={() => setModal(<BoardForm boardId={currentBoard.id} />)}
-            >
-              Edit Board
+      <div className={style["header__btn-group"]}>
+        <button
+          onClick={() => setModal(<CreateTaskForm />)}
+          disabled={!currentBoard}
+        >
+          + Add New Task
+        </button>
+        <button onClick={toggleButtonsVisibility} disabled={!currentBoard}>
+          ...
+        </button>
+        {showButtons && (
+          <div ref={buttonsRef} className={style["header__btn-modal"]}>
+            <button onClick={() => setModal(<DeleteModal />)}>
+              Delete Board
             </button>
-          )}
-        </div>
-      )}
+            {currentBoard && (
+              <button
+                onClick={() =>
+                  setModal(<BoardForm boardId={currentBoard.id} />)
+                }
+              >
+                Edit Board
+              </button>
+            )}
+          </div>
+        )}
+      </div>
     </header>
   );
 };
