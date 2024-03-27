@@ -10,8 +10,6 @@ export default function Board() {
   const { state, dispatch } = useBoard();
   const params = useParams<BoardParams>();
 
-  console.log("state:", state);
-
   // const getBoard = (name: string): BoardType | undefined => {
   //   return state.boards.find((board) => board.name === name);
   // };

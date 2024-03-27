@@ -2,8 +2,9 @@ import { FC, useEffect, useRef, useState } from "react";
 import DeleteModal from "../modals/DeleteModal/DeleteModal";
 import { useModal } from "../../hooks/useModal";
 import { useBoard } from "../../hooks/useBoard";
-import EditBoardForm from "../forms/EditBoardForm/EditBoardForm";
+// import EditBoardForm from "../forms/EditBoardForm/EditBoardForm";
 import style from "./Header.module.scss";
+import BoardForm from "../forms/BoardForm/BoardForm";
 
 const Header: FC = () => {
   const { setModal } = useModal();
@@ -11,6 +12,8 @@ const Header: FC = () => {
   const { currentBoard } = state;
   const [showButtons, setShowButtons] = useState<boolean>(false);
   const buttonsRef = useRef<HTMLDivElement | null>(null);
+
+  console.log("state:", state);
 
   const toggleButtonsVisibility = () => setShowButtons(!showButtons);
 
@@ -43,9 +46,7 @@ const Header: FC = () => {
           </button>
           {currentBoard && (
             <button
-              onClick={() =>
-                setModal(<EditBoardForm boardId={currentBoard.id} />)
-              }
+              onClick={() => setModal(<BoardForm boardId={currentBoard.id} />)}
             >
               Edit Board
             </button>

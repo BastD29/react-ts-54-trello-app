@@ -2,8 +2,8 @@ import { FC } from "react";
 import { useModal } from "../../hooks/useModal";
 import BoardsList from "../boards/BoardsList/BoardsList";
 // import CreateBoardForm from "../forms/CreateBoardForm/CreateBoardForm";
-import CreateBoardForm from "../forms/CreateBoardForm/CreateBoardForm2";
 import style from "./Sidebar.module.scss";
+import BoardForm from "../forms/BoardForm/BoardForm";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -23,9 +23,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, toggle }) => {
         X
       </button>
       <BoardsList />
-      <button onClick={() => setModal(<CreateBoardForm />)}>
-        Create New Board
-      </button>
+      <button onClick={() => setModal(<BoardForm />)}>Create New Board</button>
     </div>
   );
 };

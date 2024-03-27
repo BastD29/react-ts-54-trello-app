@@ -1,0 +1,14 @@
+.board-form {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 8px;
+
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  input {
+    height: 20px;
+  }
+}
