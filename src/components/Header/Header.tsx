@@ -39,7 +39,9 @@ const Header: FC = () => {
       <h1>{currentBoard ? currentBoard.name : ""}</h1>
       <div className={style["header__btn-group"]}>
         <button
-          onClick={() => setModal(<CreateTaskForm />)}
+          onClick={() =>
+            setModal(<CreateTaskForm columns={currentBoard?.columns || []} />)
+          }
           disabled={!currentBoard}
         >
           + Add New Task

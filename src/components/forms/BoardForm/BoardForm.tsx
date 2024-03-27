@@ -77,7 +77,7 @@ const BoardForm: FC<BoardFormProps> = ({ boardId }) => {
     e.preventDefault();
     console.log("submitted formData: ", formData);
 
-    if (isEditMode) {
+    if (isEditMode && boardId) {
       // Update logic
       dispatch({
         type: UPDATE_BOARD,
@@ -88,8 +88,7 @@ const BoardForm: FC<BoardFormProps> = ({ boardId }) => {
         payload: { id: boardId, ...formData },
       });
       navigate(`/${boardId}`);
-    } else {
-      // Create logic
+    } else if (!isEditMode) {
       const newId = Date.now().toString();
       dispatch({ type: ADD_BOARD, payload: { id: newId, ...formData } });
       setFormData(initialValues);

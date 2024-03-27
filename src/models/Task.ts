@@ -8,6 +8,7 @@
 type TaskType = {
   id: string;
   title: string;
+  columnId: string;
 };
 
 type TaskState = {
