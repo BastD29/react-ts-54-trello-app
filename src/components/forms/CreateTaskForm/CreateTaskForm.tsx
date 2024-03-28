@@ -8,7 +8,6 @@ import Dropdown from "../../Dropdown/Dropdown";
 import style from "./CreateTaskForm.module.scss";
 import InputField from "../../inputs/InputField/InputField";
 
-// type FormDataType = Omit<TaskType, "id" | "columnId">;
 type FormDataType = Omit<TaskType, "id">;
 
 export type Option = {

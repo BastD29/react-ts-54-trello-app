@@ -1,3 +1,5 @@
 .tasks-list {
-  // border: solid 1px red;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 8px;
 }

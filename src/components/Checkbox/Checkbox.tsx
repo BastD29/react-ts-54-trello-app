@@ -1,44 +1,29 @@
-import { FC, InputHTMLAttributes, MouseEvent, useState } from "react";
+import { FC, useState } from "react";
+import style from "./Checkbox.module.scss";
 
-import styles from "./Checkbox.module.scss";
-
-type CheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
+type CheckboxProps = {
   label?: string;
+  checked: boolean;
+  onChange: () => void;
 };
 
-const Checkbox: FC<CheckboxProps> = ({ label, ...props }) => {
-  const [checked, setChecked] = useState<boolean>(props.checked || false);
+const Checkbox: FC<CheckboxProps> = ({ label, checked, onChange }) => {
+  // const [isChecked, setIsChecked] = useState(false);
 
-  const handleWrapperClick = () => {
-    setChecked(!checked);
-  };
+  // const handleOnChange = () => {
+  //   setIsChecked(!isChecked);
+  // };
 
-  const handleLabelClick = (e: MouseEvent) => {
-    e.stopPropagation();
-  };
+  // const classname = `${isChecked ? style["checked"] : style["unchecked"]}`;
+  const classname = `${checked ? style["checked"] : style["unchecked"]}`;
 
-  const checkboxWrapperClassname = `${styles["checkbox-wrapper"]}`;
-
-  const checkboxLabelClassname = `${checked ? styles["checked"] : ""}`;
+  // console.log("checked:", checked);
 
   return (
-    <div className={checkboxWrapperClassname} onClick={handleWrapperClick}>
-      <input
-        checked={checked}
-        id="subtask-checkbox"
-        type="checkbox"
-        className={styles["checkbox-input"]}
-        onChange={() => setChecked(!checked)}
-        {...props}
-      />
-      <label
-        htmlFor="subtask-checkbox"
-        className={checkboxLabelClassname}
-        onClick={handleLabelClick}
-      >
-        {label}
-      </label>
-    </div>
+    <label className={classname}>
+      <input type="checkbox" checked={checked} onChange={onChange} />
+      {label}
+    </label>
   );
 };
 

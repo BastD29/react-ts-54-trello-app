@@ -1,0 +1,6 @@
+.task-detail {
+  &__subtasks {
+    display: flex;
+    flex-direction: column;
+  }
+}
