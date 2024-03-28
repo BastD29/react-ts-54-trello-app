@@ -1,0 +1,21 @@
+.checkbox-wrapper {
+  //   border: solid 1px red;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  grid-gap: 8px;
+
+  cursor: pointer;
+
+  input {
+    cursor: pointer;
+  }
+
+  label {
+    cursor: pointer;
+  }
+
+  .checked {
+    text-decoration: line-through;
+  }
+}

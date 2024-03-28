@@ -8,6 +8,8 @@
 type TaskType = {
   id: string;
   title: string;
+  description: string;
+  subtasks?: SubtaskType[];
   columnId: string;
 };
 
@@ -17,6 +19,7 @@ type TaskState = {
 };
 
 type SubtaskType = {
+  id: string;
   description: string;
   isChecked: boolean;
 };

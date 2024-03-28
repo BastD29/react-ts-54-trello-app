@@ -2,10 +2,11 @@ import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { useTask } from "../../../hooks/useTask";
 import { ADD_TASK } from "../../../reducer/task/actions";
 import { useModal } from "../../../hooks/useModal";
-import { TaskType } from "../../../models/Task";
+import { SubtaskType, TaskType } from "../../../models/Task";
 import { ColumnType } from "../../../models/Column";
 import Dropdown from "../../Dropdown/Dropdown";
 import style from "./CreateTaskForm.module.scss";
+import InputField from "../../inputs/InputField/InputField";
 
 // type FormDataType = Omit<TaskType, "id" | "columnId">;
 type FormDataType = Omit<TaskType, "id">;
@@ -18,6 +19,8 @@ export type Option = {
 const initialValues: FormDataType = {
   title: "",
   columnId: "",
+  description: "",
+  subtasks: [],
 };
 
 type CreateTaskFormProps = {
@@ -34,13 +37,49 @@ const CreateTaskForm: FC<CreateTaskFormProps> = ({ columns }) => {
     value: column.id,
   }));
 
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, title: e.target.value });
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
-  // const handleColumnChange = (e: ChangeEvent<HTMLSelectElement>) => {
-  //   setFormData({ ...formData, columnId: e.target.value });
-  // };
+  const handleSubtaskChange = (
+    id: string,
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    const updatedSubtasks = formData.subtasks?.map((subtask) => {
+      if (subtask.id === id) {
+        return { ...subtask, description: e.target.value };
+      }
+      return subtask;
+    });
+
+    setFormData({ ...formData, subtasks: updatedSubtasks });
+  };
+
+  const handleAddSubtask = () => {
+    const newSubtask: SubtaskType = {
+      id: Date.now().toString(),
+      description: "",
+      isChecked: false,
+    };
+
+    setFormData({
+      ...formData,
+      subtasks: [...(formData.subtasks || []), newSubtask],
+    });
+  };
+
+  const handleDeleteSubtask = (id: string) => {
+    const updatedSubtasks =
+      formData.subtasks?.filter((subtask) => subtask.id !== id) || [];
+    setFormData({ ...formData, subtasks: updatedSubtasks });
+  };
 
   const handleColumnSelect = (option: Option) => {
     setFormData({ ...formData, columnId: option.value });
@@ -67,23 +106,42 @@ const CreateTaskForm: FC<CreateTaskFormProps> = ({ columns }) => {
         Title
         <input
           type="text"
+          name="title"
           value={formData.title}
-          onChange={handleTitleChange}
+          onChange={handleChange}
           placeholder="e.g. Take coffee break"
         />
       </label>
       <label>
+        Description
+        <textarea
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          id=""
+          cols={30}
+          rows={10}
+          placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
+        />
+      </label>
+      <label>
+        Subtasks
+        {formData.subtasks?.map((subtask) => (
+          <InputField
+            key={subtask.id}
+            id={subtask.id}
+            value={subtask.description}
+            onInputChange={(id, e) => handleSubtaskChange(id, e)}
+            onDeleteItem={handleDeleteSubtask}
+          />
+        ))}
+        <button type="button" onClick={handleAddSubtask}>
+          + Add New Subtask
+        </button>
+      </label>
+      <label>
         Status
-        {/* <select value={formData.columnId} onChange={handleColumnChange}>
-          <option value="">Select a status</option>
-          {columns.map((column) => (
-            <option key={column.id} value={column.id}>
-              {column.name}
-            </option>
-          ))}
-        </select> */}
         <Dropdown
-          // label="Column"
           options={options}
           onSelect={handleColumnSelect}
           id="column-dropdown"

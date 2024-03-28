@@ -12,9 +12,6 @@ const TasksList: FC<TasksListProps> = ({ tasks }) => {
     <div className={style["tasks-list"]}>
       {/* <h1>Tasks List</h1> */}
       {tasks.map((task) => (
-        // <div key={task.id} className={style["task-item"]}>
-        //   <h3>{task.title}</h3>
-        // </div>
         <TaskItem key={task.id} task={task} />
       ))}
     </div>

@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useBoard } from "../../hooks/useBoard";
+import { useModal } from "../../hooks/useModal";
 import { BoardParams, BoardType } from "../../models/Board";
 import { SET_CURRENT_BOARD } from "../../reducer/board/actions";
 import BoardForm from "../../components/forms/BoardForm/BoardForm";
 import ColumnItem from "../../components/columns/ColumnItem/ColumnItem";
 import EmptyBoard from "../../pages/EmptyBoard/EmptyBoard";
-import { useModal } from "../../hooks/useModal";
 import style from "./board.module.scss";
 
 export default function Board() {
@@ -17,7 +17,7 @@ export default function Board() {
   const { setModal } = useModal();
   const params = useParams<BoardParams>();
 
-  console.log("currentBoard:", currentBoard);
+  // console.log("currentBoard:", currentBoard);
 
   // const getBoard = (name: string): BoardType | undefined => {
   //   return state.boards.find((board) => board.name === name);
