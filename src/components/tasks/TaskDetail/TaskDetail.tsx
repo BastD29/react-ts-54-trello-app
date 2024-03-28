@@ -2,21 +2,39 @@ import { FC } from "react";
 import Checkbox from "../../Checkbox/Checkbox";
 import { useTask } from "../../../hooks/useTask";
 import { TOGGLE_SUBTASK } from "../../../reducer/task/actions";
+// import { Option } from "../../Dropdown/Dropdown";
+// import { useBoard } from "../../../hooks/useBoard";
 import style from "./TaskDetail.module.scss";
 
 type ViewTaskProps = {
   taskId: string;
 };
 
-// Here I did not pass task as a prop directly because the checkbox
-// state was updated in TaskItem but not in ViewTask
+// * Here I did not pass task as a prop directly because the checkbox
+// * state was updated in TaskItem but not in ViewTask
 const TaskDetail: FC<ViewTaskProps> = ({ taskId }) => {
+  // const [selectedColumn, setSelectedColumn] = useState<Option | null>(null);
+
   const {
     dispatch,
     state: { tasks },
   } = useTask();
 
+  // const {
+  //   state: { currentBoard },
+  // } = useBoard();
+
   const task = tasks.find((t) => t.id === taskId);
+
+  // const options: Option[] =
+  //   currentBoard?.columns?.map((column) => ({
+  //     label: column.name,
+  //     value: column.id,
+  //   })) || [];
+
+  // const handleColumnSelect = (option: Option) => {
+  //   setSelectedColumn(option);
+  // };
 
   if (!task) {
     return <div>Task not found.</div>;
@@ -45,6 +63,10 @@ const TaskDetail: FC<ViewTaskProps> = ({ taskId }) => {
           />
         ))}
       </div>
+      <label>
+        Current Status
+        {/* <Dropdown options={options} onSelect={handleColumnSelect} /> */}
+      </label>
     </div>
   );
 };
