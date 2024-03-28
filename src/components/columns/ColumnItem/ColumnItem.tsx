@@ -17,7 +17,7 @@ const ColumnItem: FC<ColumnItemProps> = ({ column }) => {
     state: { tasks },
   } = useTask();
 
-  console.log("tasks:", tasks);
+  // console.log("tasks:", tasks);
 
   const filteredTasks = tasks.filter((task) => task.columnId === column.id);
 
@@ -25,7 +25,7 @@ const ColumnItem: FC<ColumnItemProps> = ({ column }) => {
     return (
       <div className={style["column-item"]}>
         <h2>{column.name}</h2>
-        <TasksList tasks={tasks} />
+        <TasksList tasks={filteredTasks} />
       </div>
     );
   } else {

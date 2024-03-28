@@ -7,7 +7,7 @@ const BoardsList: FC = () => {
   const { state } = useBoard();
 
   return (
-    <div className={style["invoices-list"]}>
+    <div className={style["boards-list"]}>
       {state.boards.map((board) => (
         <BoardItem key={board.id} board={board} />
       ))}

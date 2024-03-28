@@ -1,13 +1,19 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
-import style from "./CreateTaskForm.module.scss";
 import { useTask } from "../../../hooks/useTask";
 import { ADD_TASK } from "../../../reducer/task/actions";
 import { useModal } from "../../../hooks/useModal";
 import { TaskType } from "../../../models/Task";
 import { ColumnType } from "../../../models/Column";
+import Dropdown from "../../Dropdown/Dropdown";
+import style from "./CreateTaskForm.module.scss";
 
 // type FormDataType = Omit<TaskType, "id" | "columnId">;
 type FormDataType = Omit<TaskType, "id">;
+
+export type Option = {
+  label: string;
+  value: any;
+};
 
 const initialValues: FormDataType = {
   title: "",
@@ -23,12 +29,21 @@ const CreateTaskForm: FC<CreateTaskFormProps> = ({ columns }) => {
   const { dispatch } = useTask();
   const { unsetModal } = useModal();
 
+  const options: Option[] = columns.map((column) => ({
+    label: column.name,
+    value: column.id,
+  }));
+
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, title: e.target.value });
   };
 
-  const handleColumnChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setFormData({ ...formData, columnId: e.target.value });
+  // const handleColumnChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  //   setFormData({ ...formData, columnId: e.target.value });
+  // };
+
+  const handleColumnSelect = (option: Option) => {
+    setFormData({ ...formData, columnId: option.value });
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -59,14 +74,20 @@ const CreateTaskForm: FC<CreateTaskFormProps> = ({ columns }) => {
       </label>
       <label>
         Status
-        <select value={formData.columnId} onChange={handleColumnChange}>
+        {/* <select value={formData.columnId} onChange={handleColumnChange}>
           <option value="">Select a status</option>
           {columns.map((column) => (
             <option key={column.id} value={column.id}>
               {column.name}
             </option>
           ))}
-        </select>
+        </select> */}
+        <Dropdown
+          // label="Column"
+          options={options}
+          onSelect={handleColumnSelect}
+          id="column-dropdown" // Optional, if you have a corresponding label
+        />
       </label>
       <button type="submit">Create New Task</button>
     </form>

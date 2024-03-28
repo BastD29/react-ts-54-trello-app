@@ -39,10 +39,11 @@ const Header: FC = () => {
       <h1>{currentBoard ? currentBoard.name : ""}</h1>
       <div className={style["header__btn-group"]}>
         <button
+          className={style["header__create-task-btn"]}
           onClick={() =>
             setModal(<CreateTaskForm columns={currentBoard?.columns || []} />)
           }
-          disabled={!currentBoard}
+          disabled={!currentBoard || currentBoard?.columns?.length === 0}
         >
           + Add New Task
         </button>

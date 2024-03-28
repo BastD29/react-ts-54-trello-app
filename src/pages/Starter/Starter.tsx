@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useBoard } from "../../hooks/useBoard";
-import Empty from "../EmptyApp/EmptyApp";
+import EmptyApp from "../EmptyApp/EmptyApp";
 import SelectBoard from "../SelectBoard/SelectBoard";
 
 const Starter: FC = () => {
@@ -9,7 +9,7 @@ const Starter: FC = () => {
   if (state.boards.length > 0) {
     return <SelectBoard />;
   } else {
-    return <Empty />;
+    return <EmptyApp />;
   }
 };
 

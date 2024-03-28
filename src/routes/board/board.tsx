@@ -5,6 +5,7 @@ import { BoardParams, BoardType } from "../../models/Board";
 import { SET_CURRENT_BOARD } from "../../reducer/board/actions";
 import ColumnItem from "../../components/columns/ColumnItem/ColumnItem";
 import style from "./board.module.scss";
+import EmptyBoard from "../../pages/EmptyBoard/EmptyBoard";
 
 export default function Board() {
   const { state, dispatch } = useBoard();
@@ -41,13 +42,27 @@ export default function Board() {
     );
   }
 
-  return (
-    <main className={style["board"]}>
-      <div className={style["board__columns-list"]}>
-        {board.columns?.map((column) => (
-          <ColumnItem key={column.id} column={column} />
-        ))}
-      </div>
-    </main>
-  );
+  // return (
+  //   <main className={style["board"]}>
+  //     <div className={style["board__columns-list"]}>
+  //       {board.columns?.map((column) => (
+  //         <ColumnItem key={column.id} column={column} />
+  //       ))}
+  //     </div>
+  //   </main>
+  // );
+
+  if (board.columns?.length === 0) {
+    return <EmptyBoard />;
+  } else {
+    return (
+      <main className={style["board"]}>
+        <div className={style["board__columns-list"]}>
+          {board.columns?.map((column) => (
+            <ColumnItem key={column.id} column={column} />
+          ))}
+        </div>
+      </main>
+    );
+  }
 }

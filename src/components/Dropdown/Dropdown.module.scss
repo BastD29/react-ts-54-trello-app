@@ -1,0 +1,24 @@
+.dropdown {
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+
+  &__selected-option {
+    background-color: lightgray;
+    // position: absolute;
+  }
+
+  &__options-list {
+    // border: solid 1px red;
+    position: absolute;
+    right: 0;
+    left: 0;
+    background-color: lightblue;
+    // z-index: 9999;
+  }
+
+  &__option {
+    cursor: pointer;
+  }
+}

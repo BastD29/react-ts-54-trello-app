@@ -15,7 +15,7 @@ const TasksList: FC<TasksListProps> = ({ tasks }) => {
         // <div key={task.id} className={style["task-item"]}>
         //   <h3>{task.title}</h3>
         // </div>
-        <TaskItem task={task} />
+        <TaskItem key={task.id} task={task} />
       ))}
     </div>
   );
