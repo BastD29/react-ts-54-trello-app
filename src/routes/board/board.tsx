@@ -3,20 +3,28 @@ import { useParams } from "react-router-dom";
 import { useBoard } from "../../hooks/useBoard";
 import { BoardParams, BoardType } from "../../models/Board";
 import { SET_CURRENT_BOARD } from "../../reducer/board/actions";
+import BoardForm from "../../components/forms/BoardForm/BoardForm";
 import ColumnItem from "../../components/columns/ColumnItem/ColumnItem";
-import style from "./board.module.scss";
 import EmptyBoard from "../../pages/EmptyBoard/EmptyBoard";
+import { useModal } from "../../hooks/useModal";
+import style from "./board.module.scss";
 
 export default function Board() {
-  const { state, dispatch } = useBoard();
+  const {
+    state: { boards, currentBoard },
+    dispatch,
+  } = useBoard();
+  const { setModal } = useModal();
   const params = useParams<BoardParams>();
+
+  console.log("currentBoard:", currentBoard);
 
   // const getBoard = (name: string): BoardType | undefined => {
   //   return state.boards.find((board) => board.name === name);
   // };
 
   const getBoard = (id: string): BoardType | undefined => {
-    return state.boards.find((board) => board.id === id);
+    return boards.find((board) => board.id === id);
   };
 
   useEffect(() => {
@@ -42,16 +50,6 @@ export default function Board() {
     );
   }
 
-  // return (
-  //   <main className={style["board"]}>
-  //     <div className={style["board__columns-list"]}>
-  //       {board.columns?.map((column) => (
-  //         <ColumnItem key={column.id} column={column} />
-  //       ))}
-  //     </div>
-  //   </main>
-  // );
-
   if (board.columns?.length === 0) {
     return <EmptyBoard />;
   } else {
@@ -62,6 +60,12 @@ export default function Board() {
             <ColumnItem key={column.id} column={column} />
           ))}
         </div>
+        <button
+          className={style["board__add-column-btn"]}
+          onClick={() => setModal(<BoardForm boardId={currentBoard?.id} />)}
+        >
+          + New Column
+        </button>
       </main>
     );
   }

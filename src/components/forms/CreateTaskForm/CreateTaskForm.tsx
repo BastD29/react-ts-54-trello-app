@@ -86,7 +86,7 @@ const CreateTaskForm: FC<CreateTaskFormProps> = ({ columns }) => {
           // label="Column"
           options={options}
           onSelect={handleColumnSelect}
-          id="column-dropdown" // Optional, if you have a corresponding label
+          id="column-dropdown"
         />
       </label>
       <button type="submit">Create New Task</button>

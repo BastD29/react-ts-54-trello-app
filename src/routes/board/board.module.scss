@@ -1,6 +1,11 @@
 .board {
   padding: 1rem;
 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  grid-gap: 8px;
+
   &__columns-list {
     display: flex;
     flex-direction: row;
