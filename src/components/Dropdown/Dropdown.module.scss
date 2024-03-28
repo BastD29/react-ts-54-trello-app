@@ -4,18 +4,17 @@
 
   position: relative;
 
-  &__selected-option {
-    background-color: lightgray;
-    // position: absolute;
+  &__select {
+    background-color: lightblue;
+    cursor: pointer;
   }
 
   &__options-list {
-    // border: solid 1px red;
+    background-color: lightgray;
     position: absolute;
-    right: 0;
+    top: 20px;
     left: 0;
-    background-color: lightblue;
-    // z-index: 9999;
+    right: 0;
   }
 
   &__option {

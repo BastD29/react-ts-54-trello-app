@@ -33,19 +33,22 @@ const Dropdown: FC<DropdownProps> = ({ label, id, onSelect, options }) => {
   return (
     <div ref={dropdownRef} className={style["dropdown"]}>
       {label && (
-        <label htmlFor={id} className={style["label"]}>
+        <label htmlFor={id} className={style["dropdown__label"]}>
           {label}
         </label>
       )}
-      <div className={style["select"]} onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className={style["dropdown__select"]}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {selectedOption.label}
       </div>
       {isOpen && (
-        <div className={style["options-list"]}>
+        <div className={style["dropdown__options-list"]}>
           {options.map((option) => (
             <div
               key={option.value}
-              className={style["option"]}
+              className={style["dropdown__option"]}
               onClick={() => handleOptionClick(option)}
             >
               {option.label}
