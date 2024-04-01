@@ -1,11 +1,10 @@
 import { FC, useEffect, useRef, useState } from "react";
-import DeleteModal from "../modals/DeleteModal/DeleteModal";
 import { useModal } from "../../hooks/useModal";
 import { useBoard } from "../../hooks/useBoard";
-// import EditBoardForm from "../forms/EditBoardForm/EditBoardForm";
-import style from "./Header.module.scss";
+import DeleteModal from "../modals/DeleteModal/DeleteModal";
 import BoardForm from "../forms/BoardForm/BoardForm";
 import CreateTaskForm from "../forms/CreateTaskForm/CreateTaskForm";
+import style from "./Header.module.scss";
 
 const Header: FC = () => {
   const { setModal } = useModal();

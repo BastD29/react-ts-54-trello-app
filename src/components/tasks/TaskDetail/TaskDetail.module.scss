@@ -1,4 +1,13 @@
 .task-detail {
+  &__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    position: relative;
+  }
+
   &__subtasks {
     display: flex;
     flex-direction: column;
@@ -7,5 +16,14 @@
   &__current-status {
     display: flex;
     flex-direction: column;
+  }
+
+  &__btn-modal {
+    display: flex;
+    flex-direction: column;
+
+    position: absolute;
+    right: 0;
+    top: 30px;
   }
 }
