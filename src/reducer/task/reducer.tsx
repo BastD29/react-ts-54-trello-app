@@ -16,13 +16,21 @@ const taskReducer = (state: TaskState, action: TaskActions): TaskState => {
         ...state,
         tasks: state.tasks.filter((task) => task.id !== action.payload),
       };
+    // case UPDATE_TASK:
+    //   return {
+    //     ...state,
+    //     tasks: state.tasks.map((task) =>
+    //       task.id === action.payload.id
+    //         ? { ...task, ...action.payload.data }
+    //         : task
+    //     ),
+    //   };
     case UPDATE_TASK:
+      const { taskId, columnId } = action.payload;
       return {
         ...state,
         tasks: state.tasks.map((task) =>
-          task.id === action.payload.id
-            ? { ...task, ...action.payload.data }
-            : task
+          task.id === taskId ? { ...task, columnId: columnId } : task
         ),
       };
     case TOGGLE_SUBTASK:

@@ -106,7 +106,7 @@ const BoardForm: FC<BoardFormProps> = ({ boardId }) => {
           type="text"
           value={formData.name}
           onChange={handleNameChange}
-          placeholder="Form Name"
+          placeholder="e.g. Web Design"
         />
       </label>
       <span>Board Columns</span>

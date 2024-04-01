@@ -15,11 +15,19 @@ type RemoveTaskAction = {
   payload: string;
 };
 
+// type UpdateTaskAction = {
+//   type: typeof UPDATE_TASK;
+//   payload: {
+//     id: string;
+//     data: Partial<TaskType>;
+//   };
+// };
+
 type UpdateTaskAction = {
   type: typeof UPDATE_TASK;
   payload: {
-    id: string;
-    data: Partial<TaskType>;
+    taskId: string;
+    columnId: string;
   };
 };
 
